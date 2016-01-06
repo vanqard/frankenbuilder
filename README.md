@@ -7,6 +7,7 @@ This allows us to create an abomination made up of methods that are turned into 
 
 # Example code
 
+Define a simple "donor" class with at least two methods so that we can cherry pick from example instances
 
 
     <?php 
@@ -36,36 +37,43 @@ This allows us to create an abomination made up of methods that are turned into 
         }
     }
 
-Define a simple class with at least two methods so that we can cherry pick from example instances
 
+
+Create our two donor instances
 
     // Set up our "donor" objects
     $kyloRen = new Character("Kylo Ren", "baddie");
     $bb8 = new Character("BB8", "funny looking droid");
+
+
+Cherry pick the `getName()` method from one donor 
     
     // Take the 'getName' method from the $kyloRen instance
     $builder->addMethod($kyloRen, "getName");
+
+
+And cherry pick the `getType()` method from the other
     
     // But take the 'getType' method from the $bb8 instance
     $builder->addMethod($bb8, 'getType');
     
-    // Collect the hybrid monster instance
-    $monster = $builder->getMonster();
-
-By feeding the `getName()` method from one instance and the `getType()` method from another we can create a hybrid
-
 
 Test the monster by invoking the two extracted methods
     
+    // Collect the hybrid monster instance
+    
+    $monster = $builder->getMonster();
+
     // Break the principle of least astonishment here
     echo "\n";
     echo "Hello, my name is {$monster->getName()}";
     echo " and I'm a {$monster->getType()}";
     echo "\n";
 
+The output: 
 
-
-In this example, we create two new character instances and take the `getName()` method from one and the `getType()` method from the other in order to create the hybrid monster. 
+    $ Hello, my name is Kylo Ren and I'm a funny looking droid
+    
 
 ### Suggested usage
 
