@@ -1,7 +1,7 @@
 {
     "name": "vanqard/frankenbuilder",
     "description": "A silly illustration of how to build a new object from existing methods still connected to their original bodies",
-    "license": "MIT",
+    "license": "CC-BY-SA",
     "authors": [
         {
             "name": "Thunder Raven-Stoker",

@@ -2,10 +2,10 @@
 namespace Vanqard\Frankenbuilder;
 
 /**
- * Class definition for the Frankenbuilder skeleton class
+ * Class definition for the Frankenbuilder skeleton class. This skeleton 
+ * forms the basis for the new hybrid object
  * 
  * @author Thunder Raven-Stoker
- *
  */
 class Skeleton
 {
@@ -23,7 +23,8 @@ class Skeleton
      * @param callable $func
      * @return fluent interface
      */
-    public function addMethod($methodName, Callable $func) {
+    public function addMethod($methodName, Callable $func) 
+    {
         $this->methods[$methodName] = $func;
         
         return $this;
@@ -36,9 +37,11 @@ class Skeleton
      * @param mixed $args
      * @return mixed
      */
-    public function __call($methodName, $args) {
+    public function __call($methodName, $args) 
+    {
         if (is_callable($this->methods[$methodName])) { 
             return call_user_func_array($this->methods[$methodName],$args);
         }
     }
 }
+

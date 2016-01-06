@@ -52,11 +52,12 @@ class Builder
      * 
      * @param object $object
      * @param string $methodName
+     * @param string $newMethodName - optional: attach the method under a new name
      * @throws InvalidObjectException When the $object param isn't actually an object
      * @throws InvalidMethodException When the named method is not callable
      * @return \Vanqard\Frankenbuilder\Builder fluent interface
      */
-    public function addMethod( $object, $methodName)
+    public function addMethod( $object, $methodName, $newMethodName = null)
     {
         if (!is_object($object)) {
             throw new InvalidObjectException('First parameter must be an object instance');
@@ -65,10 +66,13 @@ class Builder
         if (!is_callable(array($object, $methodName))) {
             throw new InvalidMethodException('The named method must be callable on the supplied object');
         }
-            
+        
         $methodInstance = new \ReflectionMethod($object, $methodName);
         $limb = $methodInstance->getClosure($object);
-        $this->addToSkeleton($methodName, $limb);
+        
+        $limbName = ( !is_null ($newMethodName) ? $newMethodName : $methodName);
+        $this->addToSkeleton($limbName, $limb);
+        
         return $this;
     }
     
@@ -79,11 +83,12 @@ class Builder
      * However, invoking the method will actually trigger on the original
      * donor object
      * 
+     * @access public - You can add your own closures too if you wish
      * @param string $methodName
      * @param Callable $limb
      */
-    public function addToSkeleton($methodName, Callable $limb)
+    public function addToSkeleton($limbName, Callable $limb)
     {
-        $this->getMonster()->addMethod($methodName, $limb);
+        $this->getMonster()->addMethod($limbName, $limb);
     }
 }
