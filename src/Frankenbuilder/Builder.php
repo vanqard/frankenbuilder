@@ -29,7 +29,7 @@ class Builder
      * 
      * @param Builder $monster
      */
-    public function __construct(Builder $monster = null)
+    public function __construct(Skeleton $monster = null)
     {
         if (is_null ($monster)) {
             $this->monster = new Skeleton();
